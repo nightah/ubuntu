@@ -3,8 +3,8 @@
 [ "${DOCKER_DEBUG}" ] && set -x
 
 die() {
-  echo "ERROR: ${1}"
-  exit 1
+	echo "ERROR: ${1}"
+	exit 1
 }
 
 # PID, trap, wait; all belongs to 'docker stop' signal handeling.
@@ -15,12 +15,12 @@ trap '[[ ${PID} ]] && kill ${PID}; exit 0' SIGTERM
 
 supervisord_pre=$(find /hooks/supervisord-pre.d/ -maxdepth 1 -type f ! -name .gitkeep 2>/dev/null | sort -n)
 if [ "$supervisord_pre" != "" ]; then
-  for hook in $supervisord_pre; do
-    echo "Executing hook ${hook}"
-    if ! /bin/bash -c "${hook}"; then
-      die "hook ${hook} returned a non-zero exit status '$?'"
-    fi
-  done
+	for hook in $supervisord_pre; do
+		echo "Executing hook ${hook}"
+		if ! /bin/bash -c "${hook}"; then
+			die "hook ${hook} returned a non-zero exit status '$?'"
+		fi
+	done
 fi
 
 [[ -f "/hooks/supervisord-pre" ]] && echo "The /hooks/supervisord-pre hook has been replaced with /hooks/supervisord-pre.d/*" && exit 1

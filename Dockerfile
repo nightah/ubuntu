@@ -25,5 +25,5 @@ ENV \
 
 COPY --link overlay/ /
 
-ENTRYPOINT ["/bin/bash", "-e", "/init/entrypoint"]
-CMD ["/init/supervisord"]
+ENTRYPOINT ["/bin/bash", "-e", "/init/entrypoint.sh"]
+CMD ["/init/supervisord.sh"]
